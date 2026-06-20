@@ -1,0 +1,1013 @@
+{
+    "ambxst": {
+        "assistant": {
+            "action": {
+                "args": {},
+                "id": "ambxst.assistant"
+            },
+            "key": "A",
+            "modifiers": [
+                "SUPER"
+            ]
+        },
+        "clipboard": {
+            "action": {
+                "args": {},
+                "id": "ambxst.clipboard"
+            },
+            "key": "",
+            "modifiers": [
+                "SUPER"
+            ]
+        },
+        "dashboard": {
+            "action": {
+                "args": {},
+                "id": "ambxst.dashboard"
+            },
+            "key": "",
+            "modifiers": [
+                "SUPER"
+            ]
+        },
+        "emoji": {
+            "action": {
+                "args": {},
+                "id": "ambxst.emoji"
+            },
+            "key": "PERIOD",
+            "modifiers": [
+                "SUPER"
+            ]
+        },
+        "launcher": {
+            "action": {
+                "args": {},
+                "id": "ambxst.launcher"
+            },
+            "key": "Super_L",
+            "modifiers": [
+                "SUPER"
+            ]
+        },
+        "notes": {
+            "action": {
+                "args": {},
+                "id": "ambxst.notes"
+            },
+            "key": "N",
+            "modifiers": [
+                "SUPER"
+            ]
+        },
+        "system": {
+            "config": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.config"
+                },
+                "key": "C",
+                "modifiers": [
+                    "SUPER",
+                    "SHIFT"
+                ]
+            },
+            "lens": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.lens"
+                },
+                "key": "A",
+                "modifiers": [
+                    "SUPER",
+                    "SHIFT"
+                ]
+            },
+            "lockscreen": {
+                "action": {
+                    "args": {},
+                    "id": "system.lock"
+                },
+                "key": "L",
+                "modifiers": [
+                    "SUPER"
+                ]
+            },
+            "overview": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.overview"
+                },
+                "key": "TAB",
+                "modifiers": [
+                    "SUPER"
+                ]
+            },
+            "powermenu": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.powermenu"
+                },
+                "key": "ESCAPE",
+                "modifiers": [
+                    "SUPER"
+                ]
+            },
+            "quit": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.quit"
+                },
+                "key": "B",
+                "modifiers": [
+                    "SUPER",
+                    "CTRL",
+                    "ALT"
+                ]
+            },
+            "reload": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.reload"
+                },
+                "key": "B",
+                "modifiers": [
+                    "SUPER",
+                    "ALT"
+                ]
+            },
+            "screenrecord": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.screenrecord"
+                },
+                "key": "R",
+                "modifiers": [
+                    "SUPER",
+                    "SHIFT"
+                ]
+            },
+            "screenshot": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.screenshot"
+                },
+                "key": "S",
+                "modifiers": [
+                    "SUPER",
+                    "SHIFT"
+                ]
+            },
+            "tools": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.tools"
+                },
+                "key": "S",
+                "modifiers": [
+                    "SUPER"
+                ]
+            }
+        },
+        "tmux": {
+            "action": {
+                "args": {},
+                "id": "ambxst.tmux"
+            },
+            "key": "",
+            "modifiers": [
+                "SUPER"
+            ]
+        },
+        "wallpapers": {
+            "action": {
+                "args": {},
+                "id": "ambxst.wallpapers"
+            },
+            "key": "COMMA",
+            "modifiers": [
+                "SUPER"
+            ]
+        }
+    },
+    "custom": [
+        {
+            "name": "Lanzar Kitty",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER"
+                    ],
+                    "key": "T"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "kitty"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Cerrar Ventana",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER"
+                    ],
+                    "key": "C"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "window.close",
+                    "args": {},
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Apagar / Salir",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER"
+                    ],
+                    "key": "M"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Explorador de Archivos",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER"
+                    ],
+                    "key": "E"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "dolphin"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Alternar Flotante",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER"
+                    ],
+                    "key": "V"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "legacy.dispatcher",
+                    "args": {
+                        "dispatcher": "togglefloating",
+                        "argument": "",
+                        "flags": ""
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Lanzar Men\u00fa",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER"
+                    ],
+                    "key": "R"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "hyprlauncher"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Alternar Pseudo",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER"
+                    ],
+                    "key": "P"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "legacy.dispatcher",
+                    "args": {
+                        "dispatcher": "pseudo",
+                        "argument": "",
+                        "flags": ""
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Alternar Split (Dwindle)",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER"
+                    ],
+                    "key": "J"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "legacy.dispatcher",
+                    "args": {
+                        "dispatcher": "togglesplit",
+                        "argument": "",
+                        "flags": ""
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Lanzar Brave Browser",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER"
+                    ],
+                    "key": "B"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "brave"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Alternar Gemini",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER"
+                    ],
+                    "key": "G"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "/home/cristiansrc/.local/bin/toggle_gemini.sh"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Lanzar Zen Browser",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER",
+                        "ALT"
+                    ],
+                    "key": "Z"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "zen-browser"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Ver Atajos",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER"
+                    ],
+                    "key": "H"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "kitty -e glow -p /home/cristiansrc/Documentos/atajos.md"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Lanzar VS Code",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER",
+                        "ALT"
+                    ],
+                    "key": "V"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "code"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Lanzar Firefox",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER"
+                    ],
+                    "key": "F"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "firefox"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Lanzar DBeaver",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER"
+                    ],
+                    "key": "D"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "dbeaver"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Abrir Gmail (Brave PWA)",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER",
+                        "ALT"
+                    ],
+                    "key": "G"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "brave --app=https://mail.google.com/"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Lanzar GoLand",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER",
+                        "SHIFT"
+                    ],
+                    "key": "G"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "goland"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Lanzar pgAdmin 4",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER",
+                        "ALT"
+                    ],
+                    "key": "P"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "/usr/pgadmin4/bin/pgadmin4"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Lanzar PyCharm",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER",
+                        "SHIFT"
+                    ],
+                    "key": "P"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "pycharm"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Lanzar Steam",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER",
+                        "ALT"
+                    ],
+                    "key": "S"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "steam"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Lanzar Warp Terminal",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER"
+                    ],
+                    "key": "W"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "warp-terminal"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Lanzar GitKraken",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER"
+                    ],
+                    "key": "K"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "gitkraken"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Historial Clipboard (Cliphist)",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER",
+                        "SHIFT"
+                    ],
+                    "key": "V"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "cliphist list | wofi --dmenu | cliphist decode | wl-copy"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Captura de Pantalla (\u00c1rea)",
+            "keys": [
+                {
+                    "modifiers": [],
+                    "key": "PRINT"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "grimblast --notify copysave area"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Captura de Pantalla (Editar \u00c1rea)",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SHIFT"
+                    ],
+                    "key": "PRINT"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "grimblast --notify edit area"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Silenciar Micr\u00f3fono Toggle",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER",
+                        "ALT"
+                    ],
+                    "key": "M"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Alternar Salida de Audio",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER",
+                        "ALT"
+                    ],
+                    "key": "A"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "/home/cristiansrc/.config/hypr/toggle_audio.sh"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Walkie-Talkie START",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER",
+                        "ALT"
+                    ],
+                    "key": "J"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "command.run",
+                    "args": {
+                        "command": "/home/cristiansrc/Documentos/Proyectos/HyprMind/src/client.sh START"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Walkie-Talkie STOP (Release)",
+            "keys": [
+                {
+                    "modifiers": [
+                        "SUPER",
+                        "ALT"
+                    ],
+                    "key": "J"
+                }
+            ],
+            "actions": [
+                {
+                    "id": "legacy.dispatcher",
+                    "args": {
+                        "dispatcher": "exec",
+                        "argument": "/home/cristiansrc/Documentos/Proyectos/HyprMind/src/client.sh STOP",
+                        "flags": "r"
+                    },
+                    "layouts": []
+                }
+            ],
+            "enabled": true
+        }
+    ],
+    "defaultAmbxstBinds": {
+        "ambxst": {
+            "assistant": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.assistant"
+                },
+                "key": "A",
+                "modifiers": [
+                    "SUPER"
+                ]
+            },
+            "clipboard": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.clipboard"
+                },
+                "key": "V",
+                "modifiers": [
+                    "SUPER"
+                ]
+            },
+            "dashboard": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.dashboard"
+                },
+                "key": "D",
+                "modifiers": [
+                    "SUPER"
+                ]
+            },
+            "emoji": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.emoji"
+                },
+                "key": "PERIOD",
+                "modifiers": [
+                    "SUPER"
+                ]
+            },
+            "launcher": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.launcher"
+                },
+                "key": "Super_L",
+                "modifiers": [
+                    "SUPER"
+                ]
+            },
+            "notes": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.notes"
+                },
+                "key": "N",
+                "modifiers": [
+                    "SUPER"
+                ]
+            },
+            "tmux": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.tmux"
+                },
+                "key": "T",
+                "modifiers": [
+                    "SUPER"
+                ]
+            },
+            "wallpapers": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.wallpapers"
+                },
+                "key": "COMMA",
+                "modifiers": [
+                    "SUPER"
+                ]
+            }
+        },
+        "system": {
+            "config": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.config"
+                },
+                "key": "C",
+                "modifiers": [
+                    "SUPER",
+                    "SHIFT"
+                ]
+            },
+            "lens": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.lens"
+                },
+                "key": "A",
+                "modifiers": [
+                    "SUPER",
+                    "SHIFT"
+                ]
+            },
+            "lockscreen": {
+                "action": {
+                    "args": {},
+                    "id": "system.lock"
+                },
+                "key": "L",
+                "modifiers": [
+                    "SUPER"
+                ]
+            },
+            "overview": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.overview"
+                },
+                "key": "TAB",
+                "modifiers": [
+                    "SUPER"
+                ]
+            },
+            "powermenu": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.powermenu"
+                },
+                "key": "ESCAPE",
+                "modifiers": [
+                    "SUPER"
+                ]
+            },
+            "quit": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.quit"
+                },
+                "key": "B",
+                "modifiers": [
+                    "SUPER",
+                    "CTRL",
+                    "ALT"
+                ]
+            },
+            "reload": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.reload"
+                },
+                "key": "B",
+                "modifiers": [
+                    "SUPER",
+                    "ALT"
+                ]
+            },
+            "screenrecord": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.screenrecord"
+                },
+                "key": "R",
+                "modifiers": [
+                    "SUPER",
+                    "SHIFT"
+                ]
+            },
+            "screenshot": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.screenshot"
+                },
+                "key": "S",
+                "modifiers": [
+                    "SUPER",
+                    "SHIFT"
+                ]
+            },
+            "tools": {
+                "action": {
+                    "args": {},
+                    "id": "ambxst.tools"
+                },
+                "key": "S",
+                "modifiers": [
+                    "SUPER"
+                ]
+            }
+        }
+    }
+}

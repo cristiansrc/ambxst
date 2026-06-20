@@ -1,0 +1,430 @@
+[startup]
+exec-once = "ambxst"
+[appearance]
+[appearance.gaps]
+inner = 5
+outer = 20
+[appearance.border]
+width = 2
+active_color = "rgb(edc3c1)"
+inactive_color = "rgb(2c2a38)"
+rounding = 16
+[appearance.opacity]
+active = 1.0
+inactive = 1.0
+[appearance.blur]
+enabled = true
+size = 4
+passes = 2
+[appearance.shadow]
+enabled = true
+size = 8
+color = "rgba(00000080)"
+[appearance.animations]
+enabled = true
+
+[general]
+layout = "dwindle"
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "Super_L"
+dispatcher = "exec"
+argument = "ambxst run launcher"
+flags = "r"
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "A"
+dispatcher = "exec"
+argument = "ambxst run assistant"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "PERIOD"
+dispatcher = "exec"
+argument = "ambxst run emoji"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "N"
+dispatcher = "exec"
+argument = "ambxst run notes"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "COMMA"
+dispatcher = "exec"
+argument = "ambxst run wallpapers"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "TAB"
+dispatcher = "exec"
+argument = "ambxst run overview"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "ESCAPE"
+dispatcher = "exec"
+argument = "ambxst run powermenu"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER", "SHIFT"]
+key = "C"
+dispatcher = "exec"
+argument = "ambxst run config"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "L"
+dispatcher = "exec"
+argument = "loginctl lock-session"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "S"
+dispatcher = "exec"
+argument = "ambxst run tools"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER", "SHIFT"]
+key = "S"
+dispatcher = "exec"
+argument = "ambxst run screenshot"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER", "SHIFT"]
+key = "R"
+dispatcher = "exec"
+argument = "ambxst run screenrecord"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER", "SHIFT"]
+key = "A"
+dispatcher = "exec"
+argument = "ambxst run lens"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER", "ALT"]
+key = "B"
+dispatcher = "exec"
+argument = "ambxst reload"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER", "CTRL", "ALT"]
+key = "B"
+dispatcher = "exec"
+argument = "ambxst quit"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "T"
+dispatcher = "exec"
+argument = "kitty"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "C"
+dispatcher = "killactive"
+argument = ""
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "M"
+dispatcher = "exec"
+argument = "command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "E"
+dispatcher = "exec"
+argument = "dolphin"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "V"
+dispatcher = "togglefloating"
+argument = ""
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "R"
+dispatcher = "exec"
+argument = "hyprlauncher"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "P"
+dispatcher = "pseudo"
+argument = ""
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "J"
+dispatcher = "togglesplit"
+argument = ""
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "B"
+dispatcher = "exec"
+argument = "brave"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "G"
+dispatcher = "exec"
+argument = "/home/cristiansrc/.local/bin/toggle_gemini.sh"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER", "ALT"]
+key = "Z"
+dispatcher = "exec"
+argument = "zen-browser"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "H"
+dispatcher = "exec"
+argument = "kitty -e glow -p /home/cristiansrc/Documentos/atajos.md"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER", "ALT"]
+key = "V"
+dispatcher = "exec"
+argument = "code"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "F"
+dispatcher = "exec"
+argument = "firefox"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "D"
+dispatcher = "exec"
+argument = "dbeaver"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER", "ALT"]
+key = "G"
+dispatcher = "exec"
+argument = "brave --app=https://mail.google.com/"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER", "SHIFT"]
+key = "G"
+dispatcher = "exec"
+argument = "goland"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER", "ALT"]
+key = "P"
+dispatcher = "exec"
+argument = "/usr/pgadmin4/bin/pgadmin4"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER", "SHIFT"]
+key = "P"
+dispatcher = "exec"
+argument = "pycharm"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER", "ALT"]
+key = "S"
+dispatcher = "exec"
+argument = "steam"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "W"
+dispatcher = "exec"
+argument = "warp-terminal"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER"]
+key = "K"
+dispatcher = "exec"
+argument = "gitkraken"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER", "SHIFT"]
+key = "V"
+dispatcher = "exec"
+argument = "cliphist list | wofi --dmenu | cliphist decode | wl-copy"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = []
+key = "PRINT"
+dispatcher = "exec"
+argument = "grimblast --notify copysave area"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SHIFT"]
+key = "PRINT"
+dispatcher = "exec"
+argument = "grimblast --notify edit area"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER", "ALT"]
+key = "M"
+dispatcher = "exec"
+argument = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER", "ALT"]
+key = "A"
+dispatcher = "exec"
+argument = "/home/cristiansrc/.config/hypr/toggle_audio.sh"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER", "ALT"]
+key = "J"
+dispatcher = "exec"
+argument = "/home/cristiansrc/Documentos/Proyectos/HyprMind/src/client.sh START"
+flags = ""
+enabled = true
+
+[[keybinds]]
+modifiers = ["SUPER", "ALT"]
+key = "J"
+dispatcher = "exec"
+argument = "/home/cristiansrc/Documentos/Proyectos/HyprMind/src/client.sh STOP"
+flags = "r"
+enabled = true
+
+[[layer_rules]]
+namespace = "quickshell"
+no_anim = true
+
+[[layer_rules]]
+namespace = "quickshell"
+blur = true
+
+[[layer_rules]]
+namespace = "quickshell"
+blur_popups = true
+
+[[layer_rules]]
+namespace = "quickshell"
+ignore_alpha = true
+ignore_alpha_value = 1.00
+
+[[layer_rules]]
+namespace = "selection"
+no_anim = true
+
+[[layer_rules]]
+namespace = "fabric"
+blur = true
+ignore_alpha_value = 0.4
+
+[[layer_rules]]
+namespace = "ambxst"
+blur = true
+blur_popups = true
+no_anim = true
+ignore_alpha_value = 0.5
+
+[[layer_rules]]
+namespace = "overview"
+blur = true
+blur_popups = true
+no_anim = true
+
+[[layer_rules]]
+namespace = "presets"
+blur = true
+blur_popups = true
+no_anim = true
+
+[input]
+[input.keyboard]
+layouts = ""
+variants = ""
+
