@@ -37,7 +37,15 @@ WlSessionLockSurface {
         property string lockscreenFramePath: {
             if (!GlobalStates.wallpaperManager)
                 return "";
-            return GlobalStates.wallpaperManager.getLockscreenFramePath(GlobalStates.wallpaperManager.currentWallpaper);
+            let screenName = root.screen ? root.screen.name : "";
+            let baseWall = "";
+            if (screenName && GlobalStates.wallpaperManager.perScreenWallpapers) {
+                baseWall = GlobalStates.wallpaperManager.perScreenWallpapers[screenName];
+            }
+            if (!baseWall) {
+                baseWall = GlobalStates.wallpaperManager.currentWallpaper;
+            }
+            return GlobalStates.wallpaperManager.getLockscreenFramePath(baseWall);
         }
 
         source: lockscreenFramePath ? "file://" + lockscreenFramePath : ""
@@ -80,32 +88,12 @@ WlSessionLockSurface {
         }
     }
 
-    // Screen capture background (fondo absoluto con zoom sincronizado)
-    ScreencopyView {
-        id: screencopyBackground
+    // Solid background behind wallpaper (replaces ScreencopyView to prevent privacy leaks)
+    Rectangle {
+        id: solidBackground
         anchors.fill: parent
-        captureSource: root.screen
-        live: false
-        paintCursor: false
-        visible: startAnim  // Visible solo cuando startAnim es true
-        z: 0  // Capa más baja - fondo absoluto
-
-        property real zoomScale: startAnim ? 1.25 : 1.0
-
-        transform: Scale {
-            origin.x: screencopyBackground.width / 2
-            origin.y: screencopyBackground.height / 2
-            xScale: screencopyBackground.zoomScale
-            yScale: screencopyBackground.zoomScale
-        }
-
-        Behavior on zoomScale {
-            enabled: Config.animDuration > 0
-            NumberAnimation {
-                duration: Config.animDuration * 2
-                easing.type: Easing.OutExpo
-            }
-        }
+        color: Colors.background
+        z: 0
     }
 
     // Overlay for dimming
