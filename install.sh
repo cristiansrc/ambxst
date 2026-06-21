@@ -2,7 +2,7 @@
 set -e
 
 # === Configuration ===
-REPO_URL="https://github.com/Axenide/Ambxst.git"
+REPO_URL="https://github.com/cristiansrc/ambxst.git"
 INSTALL_PATH="$HOME/.local/src/ambxst"
 BIN_DIR="/usr/local/bin"
 QUICKSHELL_REPO="https://git.outfoxxed.me/outfoxxed/quickshell"
@@ -287,6 +287,19 @@ migrate_old_paths() {
 # === Repository Setup ===
 setup_repo() {
   [[ "$DISTRO" == "nixos" ]] && return
+
+  # If running from a local directory containing the source files, copy them directly
+  if [[ -f "./cli.sh" && -d "./src" ]]; then
+    log_info "Detected local source files. Installing from current directory..."
+    mkdir -p "$INSTALL_PATH"
+    if has_cmd rsync; then
+      rsync -av --delete --exclude='.git' --exclude='node_modules' --exclude='*.log' --exclude='graphify-out' ./ "$INSTALL_PATH/"
+    else
+      cp -r ./* "$INSTALL_PATH/"
+    fi
+    log_success "Synchronized local files to $INSTALL_PATH"
+    return
+  fi
 
   if [[ ! -d "$INSTALL_PATH" ]]; then
     log_info "Cloning Ambxst to $INSTALL_PATH..."
