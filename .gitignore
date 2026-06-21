@@ -1,0 +1,8 @@
+.qmlls.ini
+.ruff_cache/
+scripts/__pycache__
+.sisyphus
+cli.log
+graphify-out/
+*.bak
+.agents/
