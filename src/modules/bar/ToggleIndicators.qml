@@ -14,8 +14,8 @@ GridLayout {
     columnSpacing: 4
     rowSpacing: 4
     
-    columns: vertical ? 1 : 5
-    rows: vertical ? 5 : 1
+    columns: vertical ? 1 : 4
+    rows: vertical ? 4 : 1
 
     property var bar
     property bool vertical: false
@@ -160,131 +160,7 @@ GridLayout {
         }
     }
 
-    // AI Model Selector Button
-    Button {
-        id: modelSelectorBtn
-        Layout.preferredHeight: 36
-        Layout.minimumWidth: 80
-        Layout.maximumWidth: 140
 
-        property string currentModel: "online"
-
-        Process {
-            id: readModelProc
-            command: ["cat", "/home/cristiansrc/.cache/hyprmind/current_model"]
-            stdout: StdioCollector {
-                onStreamFinished: {
-                    if (text.trim() !== "") {
-                        modelSelectorBtn.currentModel = text.trim();
-                    }
-                }
-            }
-            Component.onCompleted: running = true
-        }
-
-        Timer {
-            id: pollModelTimer
-            interval: 2000
-            running: true
-            repeat: true
-            onTriggered: {
-                if (!readModelProc.running) {
-                    readModelProc.running = true;
-                }
-            }
-        }
-
-        Process {
-            id: writeModelProc
-            command: []
-        }
-
-        background: StyledRect {
-            id: msBg
-            variant: "bg"
-            enableShadow: root.layerEnabled
-            
-            topLeftRadius: 0
-            topRightRadius: 0
-            bottomLeftRadius: 0
-            bottomRightRadius: 0
-
-            Rectangle {
-                anchors.fill: parent
-                color: Styling.srItem("overprimary")
-                opacity: modelSelectorBtn.pressed ? 0.5 : (modelSelectorBtn.hovered ? 0.25 : 0)
-                radius: parent.radius ?? 0
-                Behavior on opacity { NumberAnimation { duration: 150 } }
-            }
-        }
-
-        contentItem: Text {
-            text: "🧠 " + (modelSelectorBtn.currentModel.split('/').pop())
-            font.family: Config.theme.font
-            font.pixelSize: 13
-            font.weight: Font.Bold
-            color: Styling.srItem("overprimary") || Colors.foreground
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            elide: Text.ElideRight
-        }
-
-        onClicked: {
-            fetchModelsProc.running = true;
-        }
-
-        Process {
-            id: fetchModelsProc
-            command: ["/home/cristiansrc/Documentos/Proyectos/HyprMind/src/get_ai_models.sh"]
-            property var rawList: []
-            property var activeMenuItems: []
-            
-            onRunningChanged: {
-                if (running) {
-                    rawList = [];
-                }
-            }
-            
-            stdout: SplitParser {
-                onRead: (text) => {
-                    let m = text.trim();
-                    if (m !== "") {
-                        fetchModelsProc.rawList.push(m);
-                    }
-                }
-            }
-            onExited: (exitCode, exitStatus) => {
-                let menuItems = rawList.map(m => {
-                    let shortName = m.split('/').pop();
-                    return {
-                        text: shortName,
-                        icon: "",
-                        isSeparator: false,
-                        onTriggered: () => {
-                            modelSelectorBtn.currentModel = m;
-                            writeModelProc.running = false;
-                            writeModelProc.command = ["/home/cristiansrc/Documentos/Proyectos/HyprMind/src/set_ai_model.sh", m];
-                            writeModelProc.running = true;
-                        }
-                    };
-                });
-                activeMenuItems = menuItems;
-                let barPos = modelSelectorBtn.mapToItem(root.bar, 0, 0);
-                console.log("[ToggleIndicators Debug] modelSelectorBtn width:", modelSelectorBtn.width, "height:", modelSelectorBtn.height);
-                console.log("[ToggleIndicators Debug] barPos relative to root.bar - x:", barPos.x, "y:", barPos.y);
-                console.log("[ToggleIndicators Debug] root.bar.screen - name:", root.bar.screen.name, "x:", root.bar.screen.x, "y:", root.bar.screen.y);
-                let absX = root.bar.screen.x + barPos.x + (modelSelectorBtn.width - 140) / 2;
-                let absY = root.bar.screen.y + barPos.y + modelSelectorBtn.height - 28;
-                console.log("[ToggleIndicators Debug] Calculated absX:", absX, "absY:", absY);
-                Visibilities.contextMenu.openCustomMenu(activeMenuItems, 140, 36, "model", absX, absY);
-            }
-        }
-
-        StyledToolTip {
-            show: modelSelectorBtn.hovered
-            tooltipText: "Seleccionar modelo local/online"
-        }
-    }
 
     // AI Mode Button
     Button {
