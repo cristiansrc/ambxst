@@ -27,7 +27,7 @@ StyledRect {
         if (url !== "") {
             let match = url.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/);
             if (match && match[2].length === 11) {
-                return "https://img.youtube.com/vi/" + match[2] + "/hqdefault.jpg";
+                return "https://img.youtube.com/vi/" + match[2] + "/mqdefault.jpg";
             }
         }
         return "file:///home/cristiansrc/Imágenes/Wallpapers/wallpaperbetter.com_2560x1440.jpg";

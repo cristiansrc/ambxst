@@ -91,7 +91,8 @@ function getCalendarLayout(dateObject, highlight) {
             "today": ((toFill == day && monthDiff == 0 && highlight) ? 1 : (
                 monthDiff == 0 ? 0 :
                     -1
-            ))
+            )),
+            "monthDiff": monthDiff
         };
         if (toFill == day && monthDiff == 0 && highlight) {
             currentWeekRow = i;

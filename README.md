@@ -5,6 +5,35 @@
 An <i><b>Ax</b>tremely</i> customizable shell.
 </p>
 
+> [!NOTE]
+> **This is a modified fork of the original Ambxst shell.**
+> The original shell was created by [Axenide](https://github.com/Axenide/Ambxst). This personal version contains custom features, tweaks, and optimizations. If you wish to install this specific customized version, you should clone and install it directly from this repository:
+> ```bash
+> git clone https://github.com/cristiansrc/ambxst.git
+> cd ambxst
+> ./install.sh
+> ```
+
+### 🚀 Key Custom Features & Fixes in this Fork:
+* **Google Calendar Integration**:
+  * Real-time display of daily events inside the Notch dashboard.
+  * KDE Plasma-style event indicators (dot counters) directly on calendar day buttons.
+  * Detailed event viewer at the bottom of the widgets panel.
+  * Automation script with Colombia holiday detection (automatically skips notifications on holidays).
+* **Media Player Enhancements**:
+  * Fixed window height clipping and rendering issues to keep player borders and rounded corners fully visible during playback.
+  * Switched YouTube thumbnail resolution to `mqdefault.jpg` to eliminate black bars (letterbox padding) on video-derived artwork.
+* **Layout and Dashboard Optimizations**:
+  * Set the Notch dashboard height to `580px` (up from 344px) for a larger workspace in all tabs.
+  * Aligned column heights cleanly using dynamic layout scaling (`Layout.fillHeight`).
+  * Repositioned scrollbar to the left side and optimized spacing inside the calendar weeks grid.
+* **Hardware Detection & Control Fallbacks**:
+  * Added automatic verification to check if the computer has Bluetooth and/or Wi-Fi hardware. If not present, all related indicators, toggle switches, and services are cleanly disabled to prevent system overhead and logs clutter.
+* **Multi-Monitor Settings Support**:
+  * Fixed a bug in multi-monitor setups where the Settings Window would only open on the primary screen. The config panel now correctly launches and displays on whichever screen the settings gear button is clicked.
+
+---
+
   <p align="center">
   <a href="https://github.com/Axenide/Ax-Shell/stargazers">
     <img src="https://img.shields.io/github/stars/Axenide/Ambxst?style=for-the-badge&logo=github&color=E3B341&logoColor=D9E0EE&labelColor=000000" alt="GitHub stars">

@@ -13,6 +13,7 @@ import qs.config
 StyledRect {
     id: player
     variant: "transparent"
+    clip: false
 
     property real playerRadius: Config.roundness > 0 ? Config.roundness + 4 : 0
     property bool playersListExpanded: false
@@ -20,7 +21,7 @@ StyledRect {
     visible: true
     radius: playerRadius
 
-    implicitHeight: 400
+    implicitHeight: 350
 
     readonly property bool isDragging: realSeekBar.isDragging
 
@@ -39,7 +40,7 @@ StyledRect {
         if (url !== "") {
             let match = url.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/);
             if (match && match[2].length === 11) {
-                return "https://img.youtube.com/vi/" + match[2] + "/hqdefault.jpg";
+                return "https://img.youtube.com/vi/" + match[2] + "/mqdefault.jpg";
             }
         }
         return "file:///home/cristiansrc/Imágenes/Wallpapers/wallpaperbetter.com_2560x1440.jpg";
@@ -98,6 +99,7 @@ StyledRect {
     }
 
     Component.onCompleted: {
+        player.radius = playerRadius;
         syncSeekBarPosition();
     }
 
@@ -130,6 +132,32 @@ StyledRect {
         asynchronous: true
     }
 
+    Item {
+        id: playerOuterMask
+        anchors.fill: parent
+        visible: false
+        layer.enabled: true
+        Rectangle {
+            anchors.fill: parent
+            radius: player.playerRadius
+            color: "white"
+        }
+    }
+
+    Item {
+        id: borderMask
+        anchors.fill: parent
+        visible: false
+        layer.enabled: true
+        Rectangle {
+            anchors.fill: parent
+            radius: player.playerRadius
+            color: "transparent"
+            border.color: "white"
+            border.width: 4
+        }
+    }
+
     MultiEffect {
         id: blurredEffect
         anchors.fill: parent
@@ -137,6 +165,8 @@ StyledRect {
         blurEnabled: true
         blurMax: 32
         blur: 1.0
+        maskEnabled: true
+        maskSource: playerOuterMask
         opacity: (player.hasArtwork || player.wallpaperPath !== "") ? 0.25 : 0.0
         visible: player.hasArtwork || player.wallpaperPath !== ""
         Behavior on opacity {
@@ -163,8 +193,7 @@ StyledRect {
         anchors.fill: parent
         source: backgroundArtFull
         maskEnabled: true
-        maskSource: innerAreaMask
-        maskInverted: true
+        maskSource: borderMask
         maskThresholdMin: 0.5
         maskSpreadAtMin: 1.0
         opacity: (player.hasArtwork || player.wallpaperPath !== "") ? 1.0 : 0.0
@@ -178,20 +207,6 @@ StyledRect {
         }
     }
 
-    Item {
-        id: innerAreaMask
-        anchors.fill: parent
-        visible: false
-        layer.enabled: true
-        Rectangle {
-            x: 4
-            y: 4
-            width: parent.width - 8
-            height: parent.height - 8
-            radius: player.radius - 4
-            color: "white"
-        }
-    }
 
     // Playback Controls
 
@@ -727,4 +742,15 @@ StyledRect {
             return Icons.telegram;
         return Icons.player;
     }
+
+    // Add a dedicated outline border to ensure it is always visible on top of the album art background
+    ClippingRectangle {
+        anchors.fill: parent
+        radius: player.playerRadius
+        color: "transparent"
+        border.color: Colors.surfaceBright
+        border.width: 1
+        z: 999 // Draw on top of all visual effects
+    }
 }
+

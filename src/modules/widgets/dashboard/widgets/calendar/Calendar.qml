@@ -7,6 +7,10 @@ import "layout.js" as CalendarLayout
 
 Item {
     id: root
+    implicitHeight: mainColumnLayout.implicitHeight
+
+    property date selectedDate: new Date()
+    property var eventsMap: ({})
 
     property int monthShift: 0
     property date currentDate: new Date()
@@ -38,6 +42,7 @@ Item {
     }
 
     ColumnLayout {
+        id: mainColumnLayout
         anchors.fill: parent
         spacing: 0
 
@@ -50,6 +55,7 @@ Item {
             clip: true
 
             ColumnLayout {
+                id: paneColumnLayout
                 anchors.fill: parent
                 anchors.margins: 4
                 spacing: 4
@@ -137,9 +143,10 @@ Item {
                     radius: Styling.radius(0)
 
                     ColumnLayout {
+                        id: weekColumnLayout
                         anchors.fill: parent
                         anchors.margins: 8
-                        spacing: 0
+                        spacing: 4
 
                         RowLayout {
                             Layout.fillWidth: true
@@ -173,6 +180,7 @@ Item {
                                 Layout.preferredHeight: 28
                                 variant: (rowIndex === root.currentWeekRow) ? "pane" : "transparent"
                                 radius: Styling.radius(-4)
+                                clip: false
 
                                 required property int index
                                 property int rowIndex: index
@@ -187,6 +195,8 @@ Item {
                                             required property int index
                                             day: calendarLayout[rowIndex][index].day
                                             isToday: calendarLayout[rowIndex][index].today
+                                            monthDiff: calendarLayout[rowIndex][index].monthDiff
+                                            viewingDate: root.viewingDate
                                         }
                                     }
                                 }
