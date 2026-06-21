@@ -35,17 +35,23 @@ PanelWindow {
     property bool _wallpaperDirInitialized: false
     property string currentMatugenScheme: wallpaperConfig.adapter.matugenScheme
     property var perScreenWallpapers: wallpaperConfig.adapter.perScreenWallpapers || {}
+    readonly property string baseWallpaper: perScreenWallpapers[currentScreenName] || currentWallpaper
     property string effectiveWallpaper: {
-        var baseWall = perScreenWallpapers[currentScreenName] || currentWallpaper;
         if (wallpaperAdapter.staticWallMode) {
-            return getLockscreenFramePath(baseWall);
+            return getLockscreenFramePath(baseWallpaper);
         }
-        return baseWall;
+        return baseWallpaper;
     }
     property string currentScreenName: wallpaper.screen ? wallpaper.screen.name : ""
     property alias tintEnabled: wallpaperAdapter.tintEnabled
     property alias staticWallMode: wallpaperAdapter.staticWallMode
     property int thumbnailsVersion: 0
+
+    onBaseWallpaperChanged: {
+        if (baseWallpaper) {
+            generateLockscreenFrame(baseWallpaper);
+        }
+    }
 
     // QUICKSHELL-GIT: property string mpvShaderDir: Quickshell.cacheDir + "/mpv_shaders_" + (currentScreenName ? currentScreenName : "ALL")
     property string mpvShaderDir: Quickshell.env("HOME") + "/.cache/ambxst/mpv_shaders_" + (currentScreenName ? currentScreenName : "ALL")
@@ -791,8 +797,8 @@ PanelWindow {
 
         // Generate lockscreen frame for initial wallpaper after a short delay
         Qt.callLater(function () {
-            if (currentWallpaper) {
-                generateLockscreenFrame(currentWallpaper);
+            if (baseWallpaper) {
+                generateLockscreenFrame(baseWallpaper);
             }
             // Force shader generation on startup if enabled
             if (tintEnabled) {

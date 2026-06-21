@@ -116,8 +116,8 @@ class LockscreenWallpaperGenerator:
             print("ℹ️  No processing needed - use wallpaper directly")
             return 0
 
-        # Clean existing files
-        self.clean_lockscreen_dir()
+        # Clean existing files - Disabled to support caching multiple monitors' wallpapers
+        # self.clean_lockscreen_dir()
 
         # Extract first frame
         success, message = self.extract_first_frame()
