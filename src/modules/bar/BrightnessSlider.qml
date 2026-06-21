@@ -10,6 +10,8 @@ Item {
 
     required property var bar
 
+    visible: currentMonitor && currentMonitor.ready
+
     property bool vertical: bar.orientation === "vertical"
     property bool isHovered: false
     property bool externalBrightnessChange: false

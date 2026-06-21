@@ -195,6 +195,7 @@ Item {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 36
                 Layout.rightMargin: 8
+                visible: currentMonitor && currentMonitor.ready
 
                 property var currentMonitor: Brightness.getMonitorForScreen(root.bar.screen)
 

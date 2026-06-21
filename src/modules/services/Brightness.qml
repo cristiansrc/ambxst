@@ -97,7 +97,7 @@ Singleton {
             splitMarker: "\n\n"
             onRead: data => {
                 const trimmed = data.trim();
-                if (!trimmed.startsWith("Display "))
+                if (!trimmed.startsWith("Display ") && !trimmed.startsWith("Invalid display"))
                     return;
 
                 const lines = trimmed.split("\n").map(l => l.trim()).filter(l => l.length > 0);
@@ -109,6 +109,19 @@ Singleton {
                 const busNum = busSplit.length > 1 ? busSplit[1] : "";
                 if (!busNum)
                     return;
+
+                // Parse DRM connector to map precisely to Hyprland monitor names (e.g. card1-DP-1 -> DP-1)
+                const drmLine = lines.find(l => l.startsWith("DRM connector:"));
+                let connector = "";
+                if (drmLine) {
+                    const drmVal = drmLine.split(":").slice(1).join(":").trim();
+                    const parts = drmVal.split("-");
+                    if (parts.length > 1 && parts[0].startsWith("card")) {
+                        connector = parts.slice(1).join("-");
+                    } else {
+                        connector = drmVal;
+                    }
+                }
 
                 const modelLine = lines.find(l => l.startsWith("Model:"));
                 const monitorLine = lines.find(l => l.startsWith("Monitor:"));
@@ -129,7 +142,9 @@ Singleton {
 
                 root.ddcMonitors.push({
                     model,
-                    busNum
+                    busNum,
+                    connector,
+                    isInvalid: trimmed.startsWith("Invalid display")
                 });
             }
         }
@@ -150,29 +165,26 @@ Singleton {
             if (useBrightnessctl || root.ddcMonitors.length === 0)
                 return null;
 
-            const usedBuses = [];
-            for (let i = 0; i < monitorIndex; ++i) {
-                const mon = root.monitors[i];
-                if (mon && mon.ddcEntry && mon.ddcEntry.busNum && !usedBuses.includes(mon.ddcEntry.busNum))
-                    usedBuses.push(mon.ddcEntry.busNum);
+            // 1. Match by connector name (e.g. DP-1, HDMI-A-1)
+            const screenName = screen && screen.name ? screen.name.toLowerCase() : "";
+            if (screenName) {
+                const connMatch = root.ddcMonitors.find(entry => entry.connector && screenName.includes(entry.connector.toLowerCase()));
+                if (connMatch)
+                    return connMatch;
             }
 
+            // 2. Fall back to match by screen model name
             const screenModel = screen && screen.model ? screen.model.toLowerCase() : "";
             if (screenModel) {
-                const modelMatch = root.ddcMonitors.find(entry => entry.model && entry.model.toLowerCase() === screenModel && !usedBuses.includes(entry.busNum));
+                const modelMatch = root.ddcMonitors.find(entry => entry.model && entry.model.toLowerCase() === screenModel);
                 if (modelMatch)
                     return modelMatch;
             }
 
-            for (let i = 0; i < root.ddcMonitors.length; ++i) {
-                const entry = root.ddcMonitors[i];
-                if (entry && entry.busNum && !usedBuses.includes(entry.busNum))
-                    return entry;
-            }
-
+            // Never fall back to random unused buses
             return null;
         }
-        readonly property bool isDdc: !useBrightnessctl && !!ddcEntry
+        readonly property bool isDdc: !useBrightnessctl && !!ddcEntry && !ddcEntry.isInvalid
         readonly property string busNum: isDdc ? ddcEntry.busNum : ""
         property int rawMaxBrightness: 100
         property real brightness

@@ -172,6 +172,22 @@ Rectangle {
                         Layout.fillHeight: true
                         Layout.minimumHeight: 100
                         spacing: 8
+                        visible: {
+                            if (Brightness.monitors.length > 0) {
+                                let focusedName = AxctlService.focusedMonitor?.name ?? "";
+                                let found = null;
+                                for (let i = 0; i < Brightness.monitors.length; i++) {
+                                    let mon = Brightness.monitors[i];
+                                    if (mon && mon.screen && mon.screen.name === focusedName) {
+                                        found = mon;
+                                        break;
+                                    }
+                                }
+                                let currentMon = found || Brightness.monitors[0];
+                                return currentMon && currentMon.ready;
+                            }
+                            return false;
+                        }
 
                         // Icon container with sync animation
                         Item {
