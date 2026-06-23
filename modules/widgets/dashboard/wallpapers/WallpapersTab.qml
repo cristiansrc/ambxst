@@ -14,11 +14,11 @@ FocusScope {
 
     // Propiedades personalizadas para la funcionalidad del componente.
     property string searchText: ""
-    property int selectedIndex: GlobalStates.wallpaperSelectedIndex
+    property int selectedIndex: -1
+    property bool isInitialCentering: false
 
     // Función para actualizar el índice seleccionado de forma centralizada
     function setSelectedIndex(newIndex: int) {
-        GlobalStates.wallpaperSelectedIndex = newIndex;
         selectedIndex = newIndex;
     }
 
@@ -97,7 +97,7 @@ FocusScope {
         // Restaurar índice válido si está en -1 y hay wallpapers
         if (selectedIndex === -1 && filteredWallpapers.length > 0) {
             const currentIndex = findCurrentWallpaperIndex();
-            setSelectedIndex(currentIndex !== -1 ? currentIndex : 0);
+            selectedIndex = currentIndex !== -1 ? currentIndex : 0;
         }
     }
 
@@ -141,7 +141,8 @@ FocusScope {
     function centerCurrentWallpaper() {
         const currentIndex = findCurrentWallpaperIndex();
         if (currentIndex !== -1) {
-            setSelectedIndex(currentIndex);
+            isInitialCentering = true;
+            selectedIndex = currentIndex;
 
             // Calcular la fila del wallpaper actual
             const currentRow = Math.floor(currentIndex / wallpapersTabRoot.gridColumns);
@@ -150,6 +151,7 @@ FocusScope {
 
             // Posicionar para que la fila esté centrada verticalmente
             wallpaperGrid.positionViewAtIndex(rowStartIndex, GridView.Center);
+            isInitialCentering = false;
         }
     }
 
@@ -255,6 +257,7 @@ FocusScope {
             // Per-Screen Monitor toggle
             Item {
                 id: perScreenCheckboxContainer
+                Layout.fillWidth: true
                 Layout.preferredWidth: 120 // un poco mas ancho para que quepa el nombre monitor si es largo
                 Layout.preferredHeight: 48
 
@@ -398,6 +401,7 @@ FocusScope {
 
             // Scheme Selector a la derecha
             Item {
+                Layout.fillWidth: true
                 Layout.preferredWidth: 120
                 Layout.preferredHeight: 48
 
@@ -429,6 +433,7 @@ FocusScope {
             // OLED Mode (moved back to Row 1)
             Item {
                 id: oledCheckboxContainer
+                Layout.fillWidth: true
                 Layout.preferredWidth: 100
                 Layout.preferredHeight: 40
                 Layout.alignment: Qt.AlignVCenter
@@ -582,12 +587,7 @@ FocusScope {
                 }
             }
 
-            // Espaciador para empujar los controles de tema a la derecha
-            Item {
-                Layout.fillWidth: true
-            }
-
-            // Selector segmentado de temas
+            // Selector segmentado de temas (con fillWidth para distribuir uniformemente)
             SegmentedSwitch {
                 id: themeSegmentedSwitch
                 options: [
@@ -597,6 +597,7 @@ FocusScope {
                 ]
                 currentIndex: Config.theme.autoTheme ? 2 : (Config.theme.lightMode ? 0 : 1)
                 buttonSize: 32
+                Layout.fillWidth: true
                 Layout.preferredHeight: 40
                 Layout.alignment: Qt.AlignVCenter
 
@@ -801,9 +802,9 @@ FocusScope {
                 onSearchTextChanged: text => {
                     searchText = text;
                     if (text.length > 0 && filteredWallpapers.length > 0) {
-                        setSelectedIndex(0);
+                        selectedIndex = 0;
                     } else {
-                        setSelectedIndex(-1);
+                        selectedIndex = -1;
                     }
                 }
 
@@ -826,36 +827,36 @@ FocusScope {
                             if (newIndex >= filteredWallpapers.length) {
                                 newIndex = filteredWallpapers.length - 1;
                             }
-                            setSelectedIndex(newIndex);
+                            selectedIndex = newIndex;
                         } else if (selectedIndex === -1) {
-                            setSelectedIndex(0);
+                            selectedIndex = 0;
                         }
                     }
                 }
                 onUpPressed: {
                     if (filteredWallpapers.length > 0) {
                         if (selectedIndex === -1) {
-                            setSelectedIndex(0);
+                            selectedIndex = 0;
                         } else if (selectedIndex >= wallpapersTabRoot.gridColumns) {
-                            setSelectedIndex(selectedIndex - wallpapersTabRoot.gridColumns);
+                            selectedIndex = selectedIndex - wallpapersTabRoot.gridColumns;
                         }
                     }
                 }
                 onLeftPressed: {
                     if (filteredWallpapers.length > 0) {
                         if (selectedIndex === -1) {
-                            setSelectedIndex(0);
+                            selectedIndex = 0;
                         } else if (selectedIndex > 0) {
-                            setSelectedIndex(selectedIndex - 1);
+                            selectedIndex = selectedIndex - 1;
                         }
                     }
                 }
                 onRightPressed: {
                     if (filteredWallpapers.length > 0) {
                         if (selectedIndex < filteredWallpapers.length - 1) {
-                            setSelectedIndex(selectedIndex + 1);
+                            selectedIndex = selectedIndex + 1;
                         } else if (selectedIndex === -1) {
-                            setSelectedIndex(0);
+                            selectedIndex = 0;
                         }
                     }
                 }
@@ -873,7 +874,7 @@ FocusScope {
                 }
             }
 
-            // Filtros de búsqueda (derecha)
+            // Filtros de búsqueda (centro)
             Item {
                 Layout.fillWidth: true
                 Layout.preferredWidth: 250
@@ -901,6 +902,49 @@ FocusScope {
 
                     onShiftTabPressed: {
                         wallpapersTabRoot.focusPreviousElement();
+                    }
+                }
+            }
+
+            // Botón para cambiar fondo de todos los monitores (derecha)
+            ToggleButton {
+                id: changeAllWallpapersBtn
+                Layout.preferredWidth: 180
+                Layout.preferredHeight: 40
+                Layout.alignment: Qt.AlignVCenter
+                buttonIcon: Icons.rotateRight
+                tooltipText: "Cambiar fondo en todos los monitores al tiempo y reiniciar intervalo"
+                radius: Styling.radius(4) // Usa el mismo radio que los otros controles
+                onToggle: function () {
+                    if (GlobalStates.wallpaperManager) {
+                        GlobalStates.wallpaperManager.selectNextWallpaperManual();
+                    }
+                }
+                
+                // Sobrescribir el estilo para que se muestre como un botón de acción uniforme con texto e icono
+                contentItem: RowLayout {
+                    anchors.fill: parent
+                    anchors.margins: 4
+                    spacing: 8
+                    
+                    Text {
+                        Layout.alignment: Qt.AlignVCenter
+                        text: Icons.rotateRight
+                        font.family: Icons.font
+                        font.pixelSize: 16
+                        color: Colors.overSurface
+                        horizontalAlignment: Text.AlignHCenter
+                    }
+                    
+                    Text {
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignVCenter
+                        text: "Cambiar Todos"
+                        font.family: Config.theme.font
+                        font.pixelSize: Config.theme.fontSize
+                        font.weight: Font.Medium
+                        color: Colors.overSurface
+                        elide: Text.ElideRight
                     }
                 }
             }
@@ -949,8 +993,8 @@ FocusScope {
 
                 // Sincronizar selectedIndex cuando el GridView cambia su currentIndex
                 onCurrentIndexChanged: {
-                    if (currentIndex !== selectedIndex && currentIndex >= 0) {
-                        setSelectedIndex(currentIndex);
+                    if (!isInitialCentering && currentIndex !== selectedIndex && currentIndex >= 0) {
+                        selectedIndex = currentIndex;
                     }
                 }
 
@@ -1214,7 +1258,6 @@ FocusScope {
                             if (wallpaperGrid.isScrolling)
                                 return;
                             parent.isHovered = true;
-                            setSelectedIndex(index);
                         }
                         onExited: {
                             parent.isHovered = false;

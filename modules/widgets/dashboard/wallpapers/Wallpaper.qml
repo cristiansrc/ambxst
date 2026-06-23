@@ -608,6 +608,15 @@ PanelWindow {
         }
     }
 
+    function selectNextWallpaperManual() {
+        if (GlobalStates.wallpaperManager && GlobalStates.wallpaperManager !== wallpaper) {
+            GlobalStates.wallpaperManager.selectNextWallpaperManual();
+            return;
+        }
+        selectNextWallpaper();
+        autoChangeTimer.restart();
+    }
+
     Timer {
         id: autoChangeTimer
         interval: Math.max(5, wallpaperAdapter.changeInterval) * 1000

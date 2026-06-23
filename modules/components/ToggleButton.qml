@@ -99,6 +99,12 @@ Button {
 
     onClicked: root.onToggle()
 
+    MouseArea {
+        anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
+        acceptedButtons: Qt.NoButton
+    }
+
     ToolTip.visible: false
     ToolTip.text: root.tooltipText
     ToolTip.delay: 1000
