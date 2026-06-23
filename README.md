@@ -31,6 +31,10 @@ An <i><b>Ax</b>tremely</i> customizable shell.
   * Added automatic verification to check if the computer has Bluetooth and/or Wi-Fi hardware. If not present, all related indicators, toggle switches, and services are cleanly disabled to prevent system overhead and logs clutter.
 * **Multi-Monitor Settings Support**:
   * Fixed a bug in multi-monitor setups where the Settings Window would only open on the primary screen. The config panel now correctly launches and displays on whichever screen the settings gear button is clicked.
+* **System-Wide Color and Theme Synchronization**:
+  * **Kitty Integration**: Dynamically exports shell font configurations directly to Kitty terminal instances.
+  * **GTK 3.0 & 4.0 (Nautilus / Thunar)**: Real-time syncing of color schemes (`prefer-light` / `prefer-dark`) and GTK theme variants (`adw-gtk3`/`adw-gtk3-dark`).
+  * **Qt & KDE (Dolphin)**: Automated generation of system `kdeglobals` and `.colors` scheme files combined with a D-Bus signal broadcast to instantly reload colors in active Qt/KDE applications.
 
 ---
 

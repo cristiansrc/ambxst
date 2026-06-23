@@ -32,7 +32,7 @@ Singleton {
     }
 
     function restoreModel() {
-        const lastModelId = StateService.get("lastAiModel", "gemini-2.0-flash");
+        const lastModelId = StateService.get("lastAiModel", "gemini-2.5-flash");
         savedModelId = lastModelId;
         tryRestore();
         persistenceReady = true;
@@ -797,7 +797,7 @@ for f in files:
                         for (let i = 0; i < data.models.length; i++) {
                             let item = data.models[i];
                             let id = item.name.replace("models/", "");
-                            if (id.includes("gemini") || id.includes("flash") || id.includes("pro")) {
+                            if ((id.includes("gemini") || id.includes("flash") || id.includes("pro")) && id !== "gemini-2.0-flash") {
                                 let m = aiModelFactory.createObject(root, {
                                     name: item.displayName || id,
                                     icon: Qt.resolvedUrl("../../../assets/aiproviders/google.svg"),

@@ -188,13 +188,29 @@ QtObject {
         const home = Quickshell.env("HOME")
         const qt5Dir = home + "/.config/qt5ct/colors"
         const qt6Dir = home + "/.config/qt6ct/colors"
+        const kdeColorSchemeDir = home + "/.local/share/color-schemes"
 
         writer.text = ini
         
-        // Single command to ensure dirs and write files
+        const pythonCmd = "import configparser, os; " +
+                          "g = os.path.expanduser('~/.config/kdeglobals'); " +
+                          "c = configparser.ConfigParser(interpolation=None); " +
+                          "c.optionxform = str; " +
+                          "if os.path.exists(g): c.read(g); " +
+                          "n = configparser.ConfigParser(interpolation=None); " +
+                          "n.optionxform = str; " +
+                          "n.read(os.path.expanduser('~/.config/qt5ct/colors/ambxst.colors')); " +
+                          "for s in n.sections(): " +
+                          "    if not c.has_section(s): c.add_section(s); " +
+                          "    for k, v in n.items(s): c.set(s, k, v); " +
+                          "with open(g, 'w') as f: c.write(f)";
+
+        // Single command to ensure dirs, write files, update kdeglobals, and notify KDE/Qt apps
         const cmd = `
-            mkdir -p "${qt5Dir}" "${qt6Dir}" && \\
-            echo "${ini}" | tee "${qt5Dir}/ambxst.colors" "${qt6Dir}/ambxst.colors" > /dev/null
+            mkdir -p "${qt5Dir}" "${qt6Dir}" "${kdeColorSchemeDir}" && \\
+            echo "${ini}" | tee "${qt5Dir}/ambxst.colors" "${qt6Dir}/ambxst.colors" "${kdeColorSchemeDir}/Ambxst.colors" > /dev/null && \\
+            python3 -c "${pythonCmd.replace(/"/g, '\\"')}" && \\
+            dbus-send --session --type=signal /KDEPlatformTheme org.kde.KDEPlatformTheme.Refresh3 2>/dev/null || true
         `
         
         writerProcess.command = ["sh", "-c", cmd]

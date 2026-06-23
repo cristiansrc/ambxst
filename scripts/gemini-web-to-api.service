@@ -1,0 +1,24 @@
+[Unit]
+Description=Gemini Web to API Server
+After=network.target
+
+[Service]
+Type=simple
+User=%i
+WorkingDirectory=/home/%i/.local/share/gemini-web-to-api
+EnvironmentFile=/home/%i/.local/share/gemini-web-to-api/.env
+ExecStart=/home/%i/.local/share/gemini-web-to-api/gemini-web-to-api-linux-amd64
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/%i/.local/share/gemini-web-to-api/cookies
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

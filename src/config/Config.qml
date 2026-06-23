@@ -133,6 +133,9 @@ Singleton {
         adapter: JsonAdapter {
             property bool oledMode: false
             property bool lightMode: false
+            property bool autoTheme: false
+            property string lightThemeStart: "06:00"
+            property string darkThemeStart: "18:00"
             property int roundness: 16
             property string font: "Roboto Condensed"
             property int fontSize: 14
@@ -1178,7 +1181,7 @@ Singleton {
             property string systemPrompt: "You are a helpful assistant running on a Linux system. You have access to some tools to control the system."
             property string tool: "none"
             property list<var> extraModels: []
-            property string defaultModel: "gemini-2.0-flash"
+            property string defaultModel: "gemini-2.5-flash"
             property int sidebarWidth: 400
             property string sidebarPosition: "right"
             property bool sidebarPinnedOnStartup: false
@@ -3381,6 +3384,53 @@ Singleton {
                 console.log("Re-running Matugen due to lightMode change");
                 wallpaperManager.runMatugenForCurrentWallpaper();
             }
+        }
+    }
+
+    function updateAutoTheme() {
+        if (!theme || !theme.autoTheme) return;
+
+        let now = new Date();
+        let currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+        let lightStartParts = (theme.lightThemeStart || "06:00").split(":");
+        let lightStartMinutes = parseInt(lightStartParts[0], 10) * 60 + parseInt(lightStartParts[1] || "0", 10);
+
+        let darkStartParts = (theme.darkThemeStart || "18:00").split(":");
+        let darkStartMinutes = parseInt(darkStartParts[0], 10) * 60 + parseInt(darkStartParts[1] || "0", 10);
+
+        let newLightMode = false;
+        if (lightStartMinutes < darkStartMinutes) {
+            newLightMode = (currentMinutes >= lightStartMinutes && currentMinutes < darkStartMinutes);
+        } else {
+            newLightMode = (currentMinutes >= lightStartMinutes || currentMinutes < darkStartMinutes);
+        }
+
+        if (theme.lightMode !== newLightMode) {
+            console.log("Auto-switching theme: setting lightMode to", newLightMode);
+            theme.lightMode = newLightMode;
+        }
+    }
+
+    Timer {
+        id: autoThemeTimer
+        interval: 60000
+        running: theme && theme.autoTheme
+        repeat: true
+        triggeredOnStart: true
+        onTriggered: root.updateAutoTheme()
+    }
+
+    Connections {
+        target: root.theme
+        function onAutoThemeChanged() {
+            root.updateAutoTheme();
+        }
+        function onLightThemeStartChanged() {
+            root.updateAutoTheme();
+        }
+        function onDarkThemeStartChanged() {
+            root.updateAutoTheme();
         }
     }
 

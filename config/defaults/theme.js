@@ -3,6 +3,9 @@
 var data = {
     "oledMode": false,
     "lightMode": false,
+    "autoTheme": false,
+    "lightThemeStart": "06:00",
+    "darkThemeStart": "18:00",
     "roundness": 16,
     "font": "Roboto Condensed",
     "fontSize": 14,
