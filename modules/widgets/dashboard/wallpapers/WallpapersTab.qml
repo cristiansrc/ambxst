@@ -1258,6 +1258,7 @@ FocusScope {
                             if (wallpaperGrid.isScrolling)
                                 return;
                             parent.isHovered = true;
+                            selectedIndex = index;
                         }
                         onExited: {
                             parent.isHovered = false;
